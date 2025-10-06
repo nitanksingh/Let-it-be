@@ -110,7 +110,7 @@
   #lines {
     position: absolute;
     width: 100%;
-    animation: scrollUp 90s linear infinite;
+    animation: scrollUp 60s linear infinite;
     animation-play-state: paused;
   }
 
@@ -143,39 +143,11 @@
   .love { color: #ff8fa3; }
   .care { color: #b0ffb3; }
   .patience { color: #80cfff; }
-  #penguinTag {
-  position: absolute;
-  bottom: 60px;
-  right: 40px;
-  font-size: 1.05em;
-  font-weight: 600;
-  color: #fff8dc;
-  text-shadow: 0 0 10px #ffcc70, 0 0 25px #ffd700;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: penguinIntro 3s ease-out forwards, penguinFloat 5s ease-in-out infinite alternate;
-  z-index: 4;
-  user-select: none;
-  pointer-events: none;
-}
-
-@keyframes penguinIntro {
-  0% { opacity: 0; transform: translateY(40px); filter: blur(4px); }
-  60% { opacity: 1; transform: translateY(0); filter: blur(0); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes penguinFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-
 </style>
 </head>
 <body>
 
-<!-- 🌠 Floating stars generated dynamically -->
+<!-- 🌠 Floating stars -->
 <script>
   for(let i=0;i<40;i++){
     const star=document.createElement('div');
@@ -201,7 +173,6 @@
     <p>Itna toh hak banta hai</p>
     <p>Mujhe ek chance</p>
     <p>Toh dede zindagi</p>
-
     <p>Galtiyon wali list</p>
     <p>Mitaane de</p>
     <p>Story mein ik</p>
@@ -209,7 +180,6 @@
     <p>Itna toh hak banta hai</p>
     <p>Mujhe ek chance</p>
     <p>Toh dede zindagi</p>
-
     <p>Meri majbooriyon</p>
     <p>Ki hai tujhko kasam</p>
     <p>[Tujhko kasam]</p>
@@ -217,19 +187,10 @@
     <p>Ab teh naraazgi</p>
     <p>Apno se kab tak</p>
     <p>Yahan koi rootha hai</p>
-
     <p>Kya sahi kya nahi</p>
     <p>Yeh sikhaa dena</p>
     <p>Bhule ko raste pe</p>
     <p>Toh aane de</p>
-    <p>Itna toh hak banta hai</p>
-    <p>Mujhe ek chance</p>
-    <p>Toh dede zindagi</p>
-
-    <p>Let it be, let it be</p>
-    <p>Ab jaane de</p>
-    <p>Ro liya hai</p>
-    <p>Zara muskuraane de</p>
     <p>Itna toh hak banta hai</p>
     <p>Mujhe ek chance</p>
     <p>Toh dede zindagi</p>
@@ -240,16 +201,17 @@
   🌙 Made with <span class="love">love</span>, <span class="care">care</span>, and <span class="patience">patience</span> by <strong>Nitank</strong> 💫
 </div>
 
+<!-- 🎧 Music & Scroll Control -->
 <script>
   const audio = new Audio("asset/letitbe.mp3");
   audio.loop = true;
-  audio.volume = 0.7;
+  audio.volume = 0.8;
 
   const btn = document.getElementById("play");
   const lines = document.getElementById("lines");
   let playing = false;
 
-  // unlock playback after user click
+  // unlock playback after first click (browser rule)
   document.body.addEventListener("click", () => {
     audio.play().then(() => audio.pause());
   }, { once: true });
@@ -258,17 +220,16 @@
     if (!playing) {
       audio.play();
       btn.textContent = "Pause Music";
-      lines.style.animationPlayState = "running";  // start lyrics scroll
+      lines.style.animationPlayState = "running"; // start looping lyrics
       playing = true;
     } else {
       audio.pause();
       btn.textContent = "Play Music";
-      lines.style.animationPlayState = "paused";   // pause lyrics scroll
+      lines.style.animationPlayState = "paused"; // pause lyrics scroll
       playing = false;
     }
   });
 </script>
-
 
 </body>
 </html>
