@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Let It Be – Zindagi</title>
+
+<style>
+  body {
+    margin: 0;
+    background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+    color: #ffd700;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+  }
+
+  /* 🌌 Background GIF overlay */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5hYmdsaXpmeGlzeXNmcmF4NWRyaWhmYmsydW9idHB4NmJ2NTR2cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zEtQ9FrbqIt3BVKY3i/giphy.gif") 
+      center / cover no-repeat;
+    opacity: 0.18;
+    z-index: 0;
+  }
+
+  /* 🌠 Floating stars */
+  .star {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    animation: float 10s linear infinite;
+  }
+  @keyframes float {
+    from { transform: translateY(100vh) scale(0); opacity: 0; }
+    50%  { opacity: 1; }
+    to   { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  h1 {
+    font-size: 2.4em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px #ffcc70;
+    z-index: 2;
+  }
+
+  #intro {
+    position: absolute;
+    top: 40%;
+    font-size: 1.3em;
+    opacity: 0;
+    animation: fadeInOut 6s ease-in-out forwards;
+    color: #fff8dc;
+    text-shadow: 0 0 20px #ffcc70;
+    z-index: 2;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-30px); }
+  }
+
+  #play {
+    background: #ffcc70;
+    color: #24243e;
+    border: none;
+    border-radius: 40px;
+    padding: 12px 28px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 204, 112, 0.6);
+    transition: all .3s ease;
+    z-index: 2;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  #play:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 204, 112, 0.9);
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255,204,112,0.6); }
+    50% { box-shadow: 0 0 40px rgba(255,204,112,1); }
+  }
+
+  #lyrics {
+    position: relative;
+    overflow: hidden;
+    height: 320px;
+    width: 90%;
+    max-width: 600px;
+    margin-top: 40px;
+    z-index: 1;
+  }
+
+  #lines {
+    position: absolute;
+    width: 100%;
+    animation: scrollUp 90s linear infinite;
+    animation-play-state: paused;
+  }
+
+  #lines p {
+    margin: 18px 0;
+    font-size: 1.2em;
+    opacity: .9;
+  }
+
+  @keyframes scrollUp {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-100%); }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 15px;
+    font-size: 0.95em;
+    color: #fff8dc;
+    text-shadow: 0 0 15px #ffcc70;
+    animation: fadeFooter 6s ease-in-out infinite alternate;
+    z-index: 2;
+  }
+
+  @keyframes fadeFooter {
+    from { opacity: 0.6; text-shadow: 0 0 10px #ffcc70; }
+    to { opacity: 1; text-shadow: 0 0 25px #ffd700; }
+  }
+
+  .love { color: #ff8fa3; }
+  .care { color: #b0ffb3; }
+  .patience { color: #80cfff; }
+  #penguinTag {
+  position: absolute;
+  bottom: 60px;
+  right: 40px;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: #fff8dc;
+  text-shadow: 0 0 10px #ffcc70, 0 0 25px #ffd700;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: penguinIntro 3s ease-out forwards, penguinFloat 5s ease-in-out infinite alternate;
+  z-index: 4;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes penguinIntro {
+  0% { opacity: 0; transform: translateY(40px); filter: blur(4px); }
+  60% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes penguinFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- 🌠 Floating stars generated dynamically -->
+<script>
+  for(let i=0;i<40;i++){
+    const star=document.createElement('div');
+    star.classList.add('star');
+    star.style.width=star.style.height=Math.random()*3+1+'px';
+    star.style.left=Math.random()*100+'%';
+    star.style.animationDuration=(5+Math.random()*10)+'s';
+    star.style.animationDelay=Math.random()*10+'s';
+    document.body.appendChild(star);
+  }
+</script>
+
+<h1>Let It Be, Zindagi 🎵</h1>
+<div id="intro">“Sometimes all you need is one more chance…”<br>— Nitank 🕊️</div>
+<button id="play">Play Music</button>
+
+<div id="lyrics">
+  <div id="lines">
+    <p>Let it be, let it be</p>
+    <p>Ab jaane de</p>
+    <p>Ro liya hai</p>
+    <p>Zara muskuraane de</p>
+    <p>Itna toh hak banta hai</p>
+    <p>Mujhe ek chance</p>
+    <p>Toh dede zindagi</p>
+
+    <p>Galtiyon wali list</p>
+    <p>Mitaane de</p>
+    <p>Story mein ik</p>
+    <p>Twist toh aane de</p>
+    <p>Itna toh hak banta hai</p>
+    <p>Mujhe ek chance</p>
+    <p>Toh dede zindagi</p>
+
+    <p>Meri majbooriyon</p>
+    <p>Ki hai tujhko kasam</p>
+    <p>[Tujhko kasam]</p>
+    <p>Chhod bhi de</p>
+    <p>Ab teh naraazgi</p>
+    <p>Apno se kab tak</p>
+    <p>Yahan koi rootha hai</p>
+
+    <p>Kya sahi kya nahi</p>
+    <p>Yeh sikhaa dena</p>
+    <p>Bhule ko raste pe</p>
+    <p>Toh aane de</p>
+    <p>Itna toh hak banta hai</p>
+    <p>Mujhe ek chance</p>
+    <p>Toh dede zindagi</p>
+
+    <p>Let it be, let it be</p>
+    <p>Ab jaane de</p>
+    <p>Ro liya hai</p>
+    <p>Zara muskuraane de</p>
+    <p>Itna toh hak banta hai</p>
+    <p>Mujhe ek chance</p>
+    <p>Toh dede zindagi</p>
+  </div>
+</div>
+
+<div class="footer">
+  🌙 Made with <span class="love">love</span>, <span class="care">care</span>, and <span class="patience">patience</span> by <strong>Nitank</strong> 💫
+</div>
+
+<script>
+  const audio = new Audio("asset/letitbe.mp3");
+  audio.loop = true;
+  audio.volume = 0.7;
+
+  const btn = document.getElementById("play");
+  const lines = document.getElementById("lines");
+  let playing = false;
+
+  // unlock playback after user click
+  document.body.addEventListener("click", () => {
+    audio.play().then(() => audio.pause());
+  }, { once: true });
+
+  btn.addEventListener("click", () => {
+    if (!playing) {
+      audio.play();
+      btn.textContent = "Pause Music";
+      lines.style.animationPlayState = "running";  // start lyrics scroll
+      playing = true;
+    } else {
+      audio.pause();
+      btn.textContent = "Play Music";
+      lines.style.animationPlayState = "paused";   // pause lyrics scroll
+      playing = false;
+    }
+  });
+</script>
+
+
+</body>
+</html>
+
+
